@@ -119,9 +119,9 @@ git push origin platform-v1.0.0
 
 ---
 
-### Step 2 — Create the Workgroup Repository
+### Step 2 — Create the Team's Workgroup Repository
 
-The workgroup repo is the root umbrella. It doesn't contain source code — only submodule pointers and shared documentation.
+The workgroup repo is scoped to this one team, not the whole company — it's the root umbrella for the Platform team's projects specifically. A company with multiple teams would have one workgroup repo per team (e.g. `acme-platform`, `acme-payments`, `acme-mobile`), each wired to its own directives fork from Step 1, not a single shared company-wide umbrella. It doesn't contain source code — only submodule pointers and shared documentation.
 
 ```bash
 # "acme" stands for your target org/company throughout this doc. Replace it with:
