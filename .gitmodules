@@ -1,8 +1,8 @@
-[submodule "projects/demo-a"]
-	path = projects/demo-a
+[submodule "demo-a"]
+	path = demo-a
 	url = git@github.com:yoavben/acme-platform-demo-a.git
-[submodule "projects/demo-b"]
-	path = projects/demo-b
+[submodule "demo-b"]
+	path = demo-b
 	url = git@github.com:yoavben/acme-platform-demo-b.git
 [submodule "platform-ai-directives"]
 	path = platform-ai-directives

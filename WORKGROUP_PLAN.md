@@ -127,8 +127,8 @@ Demo Project A and Demo Project B already exist as independent repos — they're
 cd acme-platform
 
 # Existing projects, owned by their own teams — just add as submodules
-git submodule add git@github.com:acme/acme-platform-demo-a.git projects/demo-a
-git submodule add git@github.com:acme/acme-platform-demo-b.git projects/demo-b
+git submodule add git@github.com:acme/acme-platform-demo-a.git demo-a
+git submodule add git@github.com:acme/acme-platform-demo-b.git demo-b
 
 # Directives fork created in Step 1
 git submodule add git@github.com:acme/platform-ai-directives.git platform-ai-directives
@@ -154,13 +154,12 @@ acme-platform/               ← root umbrella repo (acme/acme-platform)
 │   │   ├── personas/
 │   │   └── rules/
 │   └── skills/
-├── projects/
-│   ├── demo-a/               ← acme/acme-platform-demo-a (submodule, pre-existing)
-│   │   ├── src/
-│   │   └── pyproject.toml
-│   └── demo-b/               ← acme/acme-platform-demo-b (submodule, pre-existing)
-│       ├── src/
-│       └── pyproject.toml
+├── demo-a/                    ← acme/acme-platform-demo-a (submodule, pre-existing)
+│   ├── src/
+│   └── pyproject.toml
+└── demo-b/                    ← acme/acme-platform-demo-b (submodule, pre-existing)
+    ├── src/
+    └── pyproject.toml
 ```
 
 Clone everything fresh with:
@@ -176,7 +175,7 @@ git clone --recurse-submodules git@github.com:acme/acme-platform.git
 Only now, with the workgroup wired up, do we bootstrap spec-kit inside each existing project and point it at the directives fork:
 
 ```bash
-cd projects/demo-a
+cd demo-a
 specify init . \
   --ai claude \
   --team-ai-directives https://github.com/acme/platform-ai-directives.git@acme-v1.0.0
@@ -190,7 +189,7 @@ specify init . \
 git add -A && git commit -m "chore: bootstrap spec-kit + team-ai-directives"
 git push
 
-cd ../..
+cd ..
 ```
 
 This adds a `.specify/` directory to each project (see Step 10 for its layout).
@@ -202,7 +201,7 @@ This adds a `.specify/` directory to each project (see Step 10 for its layout).
 Run the built-in health check in each project:
 
 ```bash
-cd projects/demo-a
+cd demo-a
 specify run adlc.team-ai-directives.verify
 
 cd ../demo-b
@@ -375,30 +374,29 @@ Use this periodically to check for rule conflicts and stale directives:
 
 ## Step 10 — Minimal Demo Project Structure (Already Created)
 
-The local demo projects under `projects/` are scaffolded as minimal Python packages:
+The demo projects at the workgroup root are scaffolded as minimal Python packages:
 
 ```
-projects/
-├── demo-a/
-│   ├── pyproject.toml
-│   ├── src/demo_a/
-│   │   ├── __init__.py
-│   │   └── main.py
-│   └── tests/
-│       └── test_main.py
-└── demo-b/
-    ├── pyproject.toml
-    ├── src/demo_b/
-    │   ├── __init__.py
-    │   └── main.py
-    └── tests/
-        └── test_main.py
+demo-a/
+├── pyproject.toml
+├── src/demo_a/
+│   ├── __init__.py
+│   └── main.py
+└── tests/
+    └── test_main.py
+demo-b/
+├── pyproject.toml
+├── src/demo_b/
+│   ├── __init__.py
+│   └── main.py
+└── tests/
+    └── test_main.py
 ```
 
 After running `specify init` in each project directory, each will also have:
 
 ```
-projects/demo-a/
+demo-a/
 └── .specify/
     ├── commands/          ← AI agent slash commands
     ├── memory/            ← project constitution lives here
