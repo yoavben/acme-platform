@@ -1,4 +1,4 @@
-# ACME Agentic SDLC Workgroup — Setup Plan
+# ACME Agentic SDLC Workgroup — Onboarding
 
 > **Goal:** Demonstrate how to use the Tikalk Spec Kit and Team AI Directives in a real, multi-project environment.
 > **Company:** ACME (placeholder — replace with your actual org name)
@@ -147,7 +147,7 @@ After Steps 1–3, the workgroup directory tree looks like this — note the two
 acme-platform/               ← root umbrella repo (acme/acme-platform)
 ├── .gitmodules               ← submodule registry
 ├── README.md                 ← workgroup overview
-├── WORKGROUP_PLAN.md         ← this file
+├── ONBOARDING.md              ← this file
 ├── platform-ai-directives/   ← acme/platform-ai-directives (submodule)
 │   ├── context_modules/
 │   │   ├── constitution.md
