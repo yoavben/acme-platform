@@ -80,12 +80,12 @@ gh repo fork tikalk/agentic-sdlc-team-ai-directives \
 
 For now, keep the fork's defaults as-is — don't hand-edit `constitution.md`, `personas/`, `rules/`, or `.skills.json` yet. Customizing these for ACME is what `/levelup.init` is for (see Step 10): it scans your codebases and proposes directive updates as CDRs, which get reviewed and merged back here via `/levelup.implement`.
 
-Tag the defaults as v1.0.0 so downstream projects have something to pin to:
+Tag the defaults so downstream projects have something to pin to. Note: this repo already carries upstream version tags (`v1.0.0`–`v1.8.x`) from the template it was forked from, so reuse of `v1.0.0` will collide — use an `acme-` prefixed tag instead:
 
 ```bash
 cd platform-ai-directives
-git tag v1.0.0
-git push origin main --tags
+git tag acme-v1.0.0
+git push origin acme-v1.0.0
 ```
 
 ---
@@ -131,7 +131,7 @@ git init && git remote add origin git@github.com:acme/acme-platform-demo-a.git
 
 specify init . \
   --ai claude \
-  --team-ai-directives https://github.com/acme/platform-ai-directives.git@v1.0.0
+  --team-ai-directives https://github.com/acme/platform-ai-directives.git@acme-v1.0.0
 
 # 3c. Add minimal Python structure
 mkdir -p src tests
@@ -168,7 +168,7 @@ git init && git remote add origin git@github.com:acme/acme-platform-demo-b.git
 
 specify init . \
   --ai claude \
-  --team-ai-directives https://github.com/acme/platform-ai-directives.git@v1.0.0
+  --team-ai-directives https://github.com/acme/platform-ai-directives.git@acme-v1.0.0
 
 mkdir -p src tests
 cat > pyproject.toml << 'EOF'

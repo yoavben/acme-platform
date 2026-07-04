@@ -1,0 +1,9 @@
+[submodule "directives"]
+	path = directives
+	url = git@github.com:yoavben/platform-ai-directives.git
+[submodule "projects/demo-a"]
+	path = projects/demo-a
+	url = git@github.com:yoavben/acme-platform-demo-a.git
+[submodule "projects/demo-b"]
+	path = projects/demo-b
+	url = git@github.com:yoavben/acme-platform-demo-b.git
