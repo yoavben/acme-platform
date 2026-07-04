@@ -19,7 +19,20 @@ The workgroup is a **GitHub repository that acts as an umbrella** for three sub-
 
 The workgroup repo itself (`acme-platform`) lives at the root of this directory and wires everything together via submodules.
 
-**Perspective:** this plan is written for the platform team member setting this up. Demo Project A and B already exist as independent repositories — someone else's team built and owns them. The platform team's job is to (1) stand up the workgroup repo, (2) fork the team AI directives, and (3) register all three — the fork plus the two existing projects — as submodules. Only once that's done does the team move on to bootstrapping spec-kit inside each existing project and running `/levelup.init`.
+---
+
+## Starting Position
+
+This doc is written for the platform team member doing this setup. Before Step 1, none of this exists yet except the two demo projects:
+
+| Piece | Status before this doc |
+|-------|------------------------|
+| `acme-platform` workgroup repo | **Doesn't exist** — created in Step 2 |
+| `platform-ai-directives` fork | **Doesn't exist** — created in Step 1 by forking `tikalk/agentic-sdlc-team-ai-directives` |
+| `acme-platform-demo-a` | **Already exists** — independent repo, owned/maintained by its own team, untouched by this doc except for submodule registration and spec-kit bootstrap |
+| `acme-platform-demo-b` | **Already exists** — same as above |
+
+The platform team's job is to (1) stand up the workgroup repo, (2) fork the team AI directives, and (3) register all three — the new fork plus the two existing projects — as submodules. Only once that's done does the team move on to bootstrapping spec-kit inside each existing project and running `/levelup.init`.
 
 ---
 
