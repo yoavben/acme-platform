@@ -196,7 +196,7 @@ The directives repo is also tracked from the workgroup so a single `git clone --
 
 ```bash
 cd acme-platform
-git submodule add git@github.com:acme/platform-ai-directives.git directives
+git submodule add git@github.com:acme/platform-ai-directives.git platform-ai-directives
 git commit -m "chore: add team-ai-directives as submodule"
 git push
 ```
@@ -212,7 +212,7 @@ acme-platform/               ← root umbrella repo (acme/acme-platform)
 ├── .gitmodules               ← submodule registry
 ├── README.md                 ← workgroup overview
 ├── WORKGROUP_PLAN.md         ← this file
-├── directives/               ← acme/platform-ai-directives (submodule)
+├── platform-ai-directives/   ← acme/platform-ai-directives (submodule)
 │   ├── context_modules/
 │   │   ├── constitution.md
 │   │   ├── personas/
@@ -283,9 +283,9 @@ specify run adlc.team-ai-directives.discover
 When a project team discovers a useful pattern:
 1. Use `/spec.levelup` inside the AI session to generate a knowledge packet.
 2. PR the change into `platform-ai-directives`.
-3. Tag a new release (e.g. `v1.1.0`).
+3. Tag a new release (e.g. `acme-v1.1.0`).
 4. Update the `--team-ai-directives` reference in each project's `.specify/` config to point to the new tag.
-5. Bump the submodule pointer in `acme-platform/directives`.
+5. Bump the submodule pointer in `acme-platform/platform-ai-directives`.
 
 ---
 
