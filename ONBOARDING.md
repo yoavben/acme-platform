@@ -19,6 +19,8 @@ The workgroup is a **GitHub repository that acts as an umbrella** for three sub-
 
 The workgroup repo itself (`acme-platform`) lives at the root of this directory and wires everything together via submodules.
 
+**Why submodules?** A git submodule is a pointer from one repo to a specific commit in another repo — the umbrella repo doesn't contain the projects' code, just a reference to each one's URL and current commit. That's the right fit here because `demo-a`, `demo-b`, and `platform-ai-directives` are independent repos with their own history, owners, and release cadence; submodules let `acme-platform` track and pin specific versions of each (e.g. the directives tag a project is bootstrapped against) without merging their code or history into one repo.
+
 ---
 
 ## Starting Position
