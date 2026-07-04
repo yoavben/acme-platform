@@ -13,11 +13,13 @@ The workgroup is a **GitHub repository that acts as an umbrella** for three sub-
 
 | # | Repo name | Type | Origin |
 |---|-----------|------|--------|
-| 1 | `platform-ai-directives` | AI directive library | Fork of [`tikalk/agentic-sdlc-team-ai-directives`](https://github.com/tikalk/agentic-sdlc-team-ai-directives) |
-| 2 | `acme-platform-demo-a` | Python project | New independent repo |
-| 3 | `acme-platform-demo-b` | Python project | New independent repo |
+| 1 | `platform-ai-directives` | AI directive library | Fork of [`tikalk/agentic-sdlc-team-ai-directives`](https://github.com/tikalk/agentic-sdlc-team-ai-directives), created by the platform team as part of this setup |
+| 2 | `acme-platform-demo-a` | Python project | Existing repo, already owned/maintained by its own team |
+| 3 | `acme-platform-demo-b` | Python project | Existing repo, already owned/maintained by its own team |
 
 The workgroup repo itself (`acme-platform`) lives at the root of this directory and wires everything together via submodules.
+
+**Perspective:** this plan is written for the platform team member setting this up. Demo Project A and B already exist as independent repositories — someone else's team built and owns them. The platform team's job is to (1) stand up the workgroup repo, (2) fork the team AI directives, and (3) register all three — the fork plus the two existing projects — as submodules. Only once that's done does the team move on to bootstrapping spec-kit inside each existing project and running `/levelup.init`.
 
 ---
 
@@ -78,7 +80,7 @@ gh repo fork tikalk/agentic-sdlc-team-ai-directives \
                                        # `--clone` already points `origin` at your fork
 ```
 
-For now, keep the fork's defaults as-is — don't hand-edit `constitution.md`, `personas/`, `rules/`, or `.skills.json` yet. Customizing these for ACME is what `/levelup.init` is for (see Step 10): it scans your codebases and proposes directive updates as CDRs, which get reviewed and merged back here via `/levelup.implement`.
+For now, keep the fork's defaults as-is — don't hand-edit `constitution.md`, `personas/`, `rules/`, or `.skills.json` yet. Customizing these for ACME is what `/levelup.init` is for (see Step 9): it scans your codebases and proposes directive updates as CDRs, which get reviewed and merged back here via `/levelup.implement`.
 
 Tag the defaults so downstream projects have something to pin to. Note: this repo already carries upstream version tags (`v1.0.0`–`v1.8.x`) from the template it was forked from, so reuse of `v1.0.0` will collide — use an `acme-` prefixed tag instead:
 
@@ -117,95 +119,29 @@ git push -u origin main
 
 ---
 
-### Step 3 — Create Demo Project A
+### Step 3 — Register the Existing Projects and Directives Fork as Submodules
 
-Demo Project A is a standalone Python project that also participates in the workgroup.
-
-```bash
-# 3a. Create the GitHub repo
-gh repo create acme/acme-platform-demo-a --public --description "ACME Demo Project A"
-
-# 3b. Initialize the project with spec-kit + team-ai-directives
-mkdir acme-platform-demo-a && cd acme-platform-demo-a
-git init && git remote add origin git@github.com:acme/acme-platform-demo-a.git
-
-specify init . \
-  --ai claude \
-  --team-ai-directives https://github.com/acme/platform-ai-directives.git@acme-v1.0.0
-
-# 3c. Add minimal Python structure
-mkdir -p src tests
-cat > pyproject.toml << 'EOF'
-[project]
-name = "acme-platform-demo-a"
-version = "0.1.0"
-requires-python = ">=3.11"
-EOF
-
-git add -A && git commit -m "chore: initialize demo project A with spec-kit"
-git push -u origin main
-
-# 3d. Back to workgroup — register as submodule
-cd ../acme-platform
-git submodule add git@github.com:acme/acme-platform-demo-a.git projects/demo-a
-git commit -m "chore: add demo-project-a as submodule"
-git push
-```
-
----
-
-### Step 4 — Create Demo Project B
-
-Repeat the same pattern for Demo Project B:
-
-```bash
-# 4a. Create the GitHub repo
-gh repo create acme/acme-platform-demo-b --public --description "ACME Demo Project B"
-
-# 4b. Initialize
-mkdir acme-platform-demo-b && cd acme-platform-demo-b
-git init && git remote add origin git@github.com:acme/acme-platform-demo-b.git
-
-specify init . \
-  --ai claude \
-  --team-ai-directives https://github.com/acme/platform-ai-directives.git@acme-v1.0.0
-
-mkdir -p src tests
-cat > pyproject.toml << 'EOF'
-[project]
-name = "acme-platform-demo-b"
-version = "0.1.0"
-requires-python = ">=3.11"
-EOF
-
-git add -A && git commit -m "chore: initialize demo project B with spec-kit"
-git push -u origin main
-
-# 4c. Register in workgroup
-cd ../acme-platform
-git submodule add git@github.com:acme/acme-platform-demo-b.git projects/demo-b
-git commit -m "chore: add demo-project-b as submodule"
-git push
-```
-
----
-
-### Step 5 — Register the Team AI Directives as a Submodule
-
-The directives repo is also tracked from the workgroup so a single `git clone --recurse-submodules` fetches everything.
+Demo Project A and Demo Project B already exist as independent repos — they're not created here, just wired into the workgroup. The directives fork from Step 1 gets registered the same way.
 
 ```bash
 cd acme-platform
+
+# Existing projects, owned by their own teams — just add as submodules
+git submodule add git@github.com:acme/acme-platform-demo-a.git projects/demo-a
+git submodule add git@github.com:acme/acme-platform-demo-b.git projects/demo-b
+
+# Directives fork created in Step 1
 git submodule add git@github.com:acme/platform-ai-directives.git platform-ai-directives
-git commit -m "chore: add team-ai-directives as submodule"
+
+git commit -m "chore: register demo-a, demo-b, and platform-ai-directives as submodules"
 git push
 ```
 
 ---
 
-### Step 6 — Verify the Full Workgroup Structure
+### Step 4 — Verify the Full Workgroup Structure
 
-After all four steps the workgroup directory tree looks like this:
+After Steps 1–3, the workgroup directory tree looks like this — note the two demo projects only have their pre-existing content so far; spec-kit hasn't been bootstrapped into them yet:
 
 ```
 acme-platform/               ← root umbrella repo (acme/acme-platform)
@@ -219,14 +155,10 @@ acme-platform/               ← root umbrella repo (acme/acme-platform)
 │   │   └── rules/
 │   └── skills/
 ├── projects/
-│   ├── demo-a/               ← acme/acme-platform-demo-a (submodule)
-│   │   ├── .specify/
-│   │   │   └── extensions/team-ai-directives/
+│   ├── demo-a/               ← acme/acme-platform-demo-a (submodule, pre-existing)
 │   │   ├── src/
 │   │   └── pyproject.toml
-│   └── demo-b/               ← acme/acme-platform-demo-b (submodule)
-│       ├── .specify/
-│       │   └── extensions/team-ai-directives/
+│   └── demo-b/               ← acme/acme-platform-demo-b (submodule, pre-existing)
 │       ├── src/
 │       └── pyproject.toml
 ```
@@ -239,7 +171,33 @@ git clone --recurse-submodules git@github.com:acme/acme-platform.git
 
 ---
 
-### Step 7 — Verify Spec Kit Integration in Each Project
+### Step 5 — Initialize Spec Kit and Team AI Directives in Each Project
+
+Only now, with the workgroup wired up, do we bootstrap spec-kit inside each existing project and point it at the directives fork:
+
+```bash
+cd projects/demo-a
+specify init . \
+  --ai claude \
+  --team-ai-directives https://github.com/acme/platform-ai-directives.git@acme-v1.0.0
+git add -A && git commit -m "chore: bootstrap spec-kit + team-ai-directives"
+git push
+
+cd ../demo-b
+specify init . \
+  --ai claude \
+  --team-ai-directives https://github.com/acme/platform-ai-directives.git@acme-v1.0.0
+git add -A && git commit -m "chore: bootstrap spec-kit + team-ai-directives"
+git push
+
+cd ../..
+```
+
+This adds a `.specify/` directory to each project (see Step 10 for its layout).
+
+---
+
+### Step 6 — Verify Spec Kit Integration in Each Project
 
 Run the built-in health check in each project:
 
@@ -255,7 +213,7 @@ Both should report all checks green (extension installed, skills loaded, constit
 
 ---
 
-### Step 8 — Daily Workflow (per project)
+### Step 7 — Daily Workflow (per project)
 
 Inside any project directory, the typical spec-driven session looks like:
 
@@ -278,7 +236,7 @@ specify run adlc.team-ai-directives.discover
 
 ---
 
-### Step 9 — Updating the Team AI Directives
+### Step 8 — Updating the Team AI Directives
 
 When a project team discovers a useful pattern:
 1. Use `/spec.levelup` inside the AI session to generate a knowledge packet.
@@ -320,7 +278,7 @@ specify self upgrade --tag agentic-sdlc-v0.12.4+adlc9
 
 ---
 
-## Step 10 — LevelUp Init: Brownfield Codebase Analysis
+## Step 9 — LevelUp Init: Brownfield Codebase Analysis
 
 After the initial directory structure is set up and spec-kit is initialized in each project, Tikalk recommends running `/levelup.init` to scan the existing code, discover reusable patterns, and generate **Context Directive Records (CDRs)** — the mechanism for contributing knowledge back to the shared team-ai-directives.
 
@@ -415,7 +373,7 @@ Use this periodically to check for rule conflicts and stale directives:
 
 ---
 
-## Step 11 — Minimal Demo Project Structure (Already Created)
+## Step 10 — Minimal Demo Project Structure (Already Created)
 
 The local demo projects under `projects/` are scaffolded as minimal Python packages:
 
