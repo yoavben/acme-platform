@@ -1,4 +1,4 @@
-# ACME Agentic SDLC Workgroup — Onboarding
+# ACME Platform Team — Agentic SDLC Workgroup Onboarding
 
 > **Goal:** Demonstrate how to use the Tikalk Spec Kit and Team AI Directives in a real, multi-project environment.
 > **Company:** ACME (placeholder — replace with your actual org name)
