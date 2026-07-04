@@ -46,7 +46,7 @@ The platform team's job is to (1) stand up the workgroup repo, (2) fork the team
 
 ### What's Different in Tikal's Spec Kit vs. Vanilla
 
-Vanilla `github/spec-kit` gives you the base spec-driven slash commands (spec → plan → tasks → implement) and nothing more. Tikal's fork adds the machinery this entire onboarding doc depends on:
+Vanilla `github/spec-kit` is built for a single developer working alone in one repo — the base spec-driven slash commands (spec → plan → tasks → implement) and nothing more. Tikal's fork turns it into a team-wide system: every project shares one evolving directives repo instead of reinventing its own, and the machinery this entire onboarding doc depends on comes from that shift:
 
 | Addition | What it does |
 |----------|-------------|
