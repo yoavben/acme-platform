@@ -14,8 +14,8 @@ The workgroup is a **GitHub repository that acts as an umbrella** for three sub-
 | # | Repo name | Type | Origin |
 |---|-----------|------|--------|
 | 1 | `platform-ai-directives` | AI directive library | Fork of [`tikalk/agentic-sdlc-team-ai-directives`](https://github.com/tikalk/agentic-sdlc-team-ai-directives) |
-| 2 | `acme-demo-project-a` | Python project | New independent repo |
-| 3 | `acme-demo-project-b` | Python project | New independent repo |
+| 2 | `acme-platform-demo-a` | Python project | New independent repo |
+| 3 | `acme-platform-demo-b` | Python project | New independent repo |
 
 The workgroup repo itself (`acme-platform`) lives at the root of this directory and wires everything together via submodules.
 
@@ -123,11 +123,11 @@ Demo Project A is a standalone Python project that also participates in the work
 
 ```bash
 # 3a. Create the GitHub repo
-gh repo create acme/acme-demo-project-a --public --description "ACME Demo Project A"
+gh repo create acme/acme-platform-demo-a --public --description "ACME Demo Project A"
 
 # 3b. Initialize the project with spec-kit + team-ai-directives
-mkdir acme-demo-project-a && cd acme-demo-project-a
-git init && git remote add origin git@github.com:acme/acme-demo-project-a.git
+mkdir acme-platform-demo-a && cd acme-platform-demo-a
+git init && git remote add origin git@github.com:acme/acme-platform-demo-a.git
 
 specify init . \
   --ai claude \
@@ -137,7 +137,7 @@ specify init . \
 mkdir -p src tests
 cat > pyproject.toml << 'EOF'
 [project]
-name = "acme-demo-project-a"
+name = "acme-platform-demo-a"
 version = "0.1.0"
 requires-python = ">=3.11"
 EOF
@@ -147,7 +147,7 @@ git push -u origin main
 
 # 3d. Back to workgroup — register as submodule
 cd ../acme-platform
-git submodule add git@github.com:acme/acme-demo-project-a.git projects/demo-a
+git submodule add git@github.com:acme/acme-platform-demo-a.git projects/demo-a
 git commit -m "chore: add demo-project-a as submodule"
 git push
 ```
@@ -160,11 +160,11 @@ Repeat the same pattern for Demo Project B:
 
 ```bash
 # 4a. Create the GitHub repo
-gh repo create acme/acme-demo-project-b --public --description "ACME Demo Project B"
+gh repo create acme/acme-platform-demo-b --public --description "ACME Demo Project B"
 
 # 4b. Initialize
-mkdir acme-demo-project-b && cd acme-demo-project-b
-git init && git remote add origin git@github.com:acme/acme-demo-project-b.git
+mkdir acme-platform-demo-b && cd acme-platform-demo-b
+git init && git remote add origin git@github.com:acme/acme-platform-demo-b.git
 
 specify init . \
   --ai claude \
@@ -173,7 +173,7 @@ specify init . \
 mkdir -p src tests
 cat > pyproject.toml << 'EOF'
 [project]
-name = "acme-demo-project-b"
+name = "acme-platform-demo-b"
 version = "0.1.0"
 requires-python = ">=3.11"
 EOF
@@ -183,7 +183,7 @@ git push -u origin main
 
 # 4c. Register in workgroup
 cd ../acme-platform
-git submodule add git@github.com:acme/acme-demo-project-b.git projects/demo-b
+git submodule add git@github.com:acme/acme-platform-demo-b.git projects/demo-b
 git commit -m "chore: add demo-project-b as submodule"
 git push
 ```
@@ -219,12 +219,12 @@ acme-platform/               ← root umbrella repo (acme/acme-platform)
 │   │   └── rules/
 │   └── skills/
 ├── projects/
-│   ├── demo-a/               ← acme/acme-demo-project-a (submodule)
+│   ├── demo-a/               ← acme/acme-platform-demo-a (submodule)
 │   │   ├── .specify/
 │   │   │   └── extensions/team-ai-directives/
 │   │   ├── src/
 │   │   └── pyproject.toml
-│   └── demo-b/               ← acme/acme-demo-project-b (submodule)
+│   └── demo-b/               ← acme/acme-platform-demo-b (submodule)
 │       ├── .specify/
 │       │   └── extensions/team-ai-directives/
 │       ├── src/
