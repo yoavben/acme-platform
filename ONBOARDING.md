@@ -40,9 +40,23 @@ The platform team's job is to (1) stand up the workgroup repo, (2) fork the team
 
 | Repo | What it is | How we use it here |
 |------|-----------|---------------------|
-| [Tikalk spec-kit](https://github.com/tikalk/agentic-sdlc-spec-kit) | The `specify` CLI — bootstraps a project with spec-driven workflow tooling (`.specify/`, slash commands, `/spec.*`, `/levelup.*`) | Installed once in Prerequisites; used throughout via `specify init`, `specify run`, `specify self upgrade` |
+| [Tikalk spec-kit](https://github.com/tikalk/agentic-sdlc-spec-kit) | A fork of [`github/spec-kit`](https://github.com/github/spec-kit) that adds a **team-directives layer** on top of the vanilla spec/plan/tasks/implement workflow — see below for what's actually different | Installed once in Prerequisites; used throughout via `specify init`, `specify run`, `specify self upgrade` |
 | [Tikalk team-ai-directives starter](https://github.com/tikalk/agentic-sdlc-team-ai-directives) | Template repo of constitution/personas/rules/skills that AI agents follow | Forked in Step 1 to create `platform-ai-directives`, ACME's own customizable copy |
 | [Tikalk 12-factor SDLC](https://github.com/tikalk/agentic-sdlc-12-factors) | Conceptual methodology doc behind agentic SDLC | Background reading only — not cloned, installed, or referenced by any command in this doc |
+
+### What's Different in Tikal's Spec Kit vs. Vanilla
+
+Vanilla `github/spec-kit` gives you the base spec-driven slash commands (spec → plan → tasks → implement) and nothing more. Tikal's fork adds the machinery this entire onboarding doc depends on:
+
+| Addition | What it does |
+|----------|-------------|
+| `specify init --team-ai-directives <url>` | Points a project at a shared directives repo (like `platform-ai-directives`) instead of each project reinventing its own constitution/rules |
+| Extension system (`specify extension add/remove/search/catalog`) | Installs the `team-ai-directives` extension into `.specify/extensions/`, which is what makes `specify run adlc.team-ai-directives.*` commands available |
+| Workflow engine (`specify workflow run/status/resume`) | Runs multi-step automations — `specify run adlc.team-ai-directives.verify` and `.discover` (Steps 6/7) are workflows under the hood |
+| `/levelup.*` + CDR loop | `/levelup.init` → `/levelup.clarify` → `/levelup.implement` → `/levelup.validate` — the discovery-to-publish pipeline for contributing patterns back to `platform-ai-directives` (Step 9). No equivalent exists in vanilla spec-kit |
+| Presets & bundles (`specify preset`, `specify bundle`) | Packaged, installable template/config sets (e.g. a `healthcare-compliance` preset) — not used in this doc, but part of the same extended toolchain |
+
+If you ever revert to vanilla spec-kit (see Appendix), all of the above — the directives extension, `/levelup.*`, and workflow verification — go away with it.
 
 ---
 
