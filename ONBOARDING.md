@@ -38,11 +38,11 @@ The platform team's job is to (1) stand up the workgroup repo, (2) fork the team
 
 ## Key Repositories
 
-| Repo | URL |
-|------|-----|
-| Tikalk spec-kit | https://github.com/tikalk/agentic-sdlc-spec-kit |
-| Tikalk team-ai-directives starter | https://github.com/tikalk/agentic-sdlc-team-ai-directives |
-| Tikalk 12-factor SDLC | https://github.com/tikalk/agentic-sdlc-12-factors |
+| Repo | What it is | How we use it here |
+|------|-----------|---------------------|
+| [Tikalk spec-kit](https://github.com/tikalk/agentic-sdlc-spec-kit) | The `specify` CLI — bootstraps a project with spec-driven workflow tooling (`.specify/`, slash commands, `/spec.*`, `/levelup.*`) | Installed once in Prerequisites; used throughout via `specify init`, `specify run`, `specify self upgrade` |
+| [Tikalk team-ai-directives starter](https://github.com/tikalk/agentic-sdlc-team-ai-directives) | Template repo of constitution/personas/rules/skills that AI agents follow | Forked in Step 1 to create `platform-ai-directives`, ACME's own customizable copy |
+| [Tikalk 12-factor SDLC](https://github.com/tikalk/agentic-sdlc-12-factors) | Conceptual methodology doc behind agentic SDLC | Background reading only — not cloned, installed, or referenced by any command in this doc |
 
 ---
 
