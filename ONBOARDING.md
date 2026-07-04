@@ -109,12 +109,12 @@ gh repo fork tikalk/agentic-sdlc-team-ai-directives \
 
 For now, keep the fork's defaults as-is — don't hand-edit `constitution.md`, `personas/`, `rules/`, or `.skills.json` yet. Customizing these for ACME is what `/levelup.init` is for (see Step 9): it scans your codebases and proposes directive updates as CDRs, which get reviewed and merged back here via `/levelup.implement`.
 
-Tag the defaults so downstream projects have something to pin to. Note: this repo already carries upstream version tags (`v1.0.0`–`v1.8.x`) from the template it was forked from, so reuse of `v1.0.0` will collide — use an `acme-` prefixed tag instead:
+Tag the defaults so downstream projects have something to pin to. Note: this repo already carries upstream version tags (`v1.0.0`–`v1.8.x`) from the template it was forked from, so reuse of `v1.0.0` will collide — prefix with your team name instead (matching the `{team}-ai-directives` naming convention), not the company name, since this fork is team-scoped:
 
 ```bash
 cd platform-ai-directives
-git tag acme-v1.0.0
-git push origin acme-v1.0.0
+git tag platform-v1.0.0
+git push origin platform-v1.0.0
 ```
 
 ---
@@ -205,14 +205,14 @@ Only now, with the workgroup wired up, do we bootstrap spec-kit inside each exis
 cd demo-a
 specify init . \
   --ai claude \
-  --team-ai-directives https://github.com/acme/platform-ai-directives.git@acme-v1.0.0
+  --team-ai-directives https://github.com/acme/platform-ai-directives.git@platform-v1.0.0
 git add -A && git commit -m "chore: bootstrap spec-kit + team-ai-directives"
 git push
 
 cd ../demo-b
 specify init . \
   --ai claude \
-  --team-ai-directives https://github.com/acme/platform-ai-directives.git@acme-v1.0.0
+  --team-ai-directives https://github.com/acme/platform-ai-directives.git@platform-v1.0.0
 git add -A && git commit -m "chore: bootstrap spec-kit + team-ai-directives"
 git push
 
@@ -267,7 +267,7 @@ specify run adlc.team-ai-directives.discover
 When a project team discovers a useful pattern:
 1. Use `/spec.levelup` inside the AI session to generate a knowledge packet.
 2. PR the change into `platform-ai-directives`.
-3. Tag a new release (e.g. `acme-v1.1.0`).
+3. Tag a new release (e.g. `platform-v1.1.0`).
 4. Update the `--team-ai-directives` reference in each project's `.specify/` config to point to the new tag.
 5. Bump the submodule pointer in `acme-platform/platform-ai-directives`.
 
