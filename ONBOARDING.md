@@ -95,7 +95,7 @@ gh auth login
 
 ### Step 1 — Fork the Team AI Directives
 
-The team-ai-directives repo is your company-wide AI rulebook. Fork it under your GitHub org.
+The team-ai-directives repo is your team's AI rulebook — scoped to this team, not the whole company. "Platform" here is just an example team name; substitute your actual team throughout (e.g. `payments-ai-directives`, `mobile-ai-directives`). A company with multiple teams would have one such fork per team. Fork it under your GitHub org.
 
 ```bash
 # Option A: fork via GitHub UI at https://github.com/tikalk/agentic-sdlc-team-ai-directives
