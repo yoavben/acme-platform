@@ -431,20 +431,20 @@ Skip this step if Step 9 didn't produce a constitution amendment, or if the resu
 Inside any project directory, the typical spec-driven session looks like — all of these are slash commands run inside your AI agent session, not `specify` CLI invocations:
 
 ```
-# 1. Discover relevant context before starting a feature
-/team.discover
+# 1. Create a spec for your feature
+# /spec.specify  (inside your AI agent session)
 
-# 2. Create a spec for your feature
-# (launch your AI agent — e.g. Claude Code — and use /spec.new)
+# 2. Generate implementation plan from spec
+# /spec.plan
 
-# 3. Generate implementation plan from spec
-# /spec.plan  (inside your AI agent session)
+# 3. Break the plan into an actionable, dependency-ordered task list
+# /spec.tasks
 
 # 4. Execute tasks
-# /spec.execute
+# /spec.implement
 
 # 5. After a significant session, capture learnings back to directives
-# /spec.levelup  — creates a knowledge packet + suggests directives updates
+# /levelup.specify  — extracts CDRs from the current feature spec context (replaces the old /spec.levelup)
 ```
 
 ---
@@ -452,30 +452,12 @@ Inside any project directory, the typical spec-driven session looks like — all
 ### Step 12 — Updating the Team AI Directives
 
 When a project team discovers a useful pattern:
-1. Use `/spec.levelup` inside the AI session to generate a knowledge packet.
+1. Use `/levelup.specify` inside the AI session to extract CDRs from the current feature spec context.
 2. PR the change into `platform-ai-directives`.
 3. Tag a new release (e.g. `platform-v1.1.0`).
 4. Bump the submodule pointer in `acme-platform/platform-ai-directives` to that tag, then `git submodule update --remote platform-ai-directives`.
 
 Because `--team-ai-directives` points at the local path rather than a remote `@tag`, there's no separate per-project `.specify/` config to update — every project sees the new version as soon as the submodule pointer is bumped and updated locally.
-
----
-
-## Spec Kit CLI Reference (quick cheat-sheet)
-
-| Command | What it does |
-|---------|-------------|
-| `specify version` | Print installed CLI version |
-| `specify self check` | Check if a newer release is available |
-| `specify self upgrade` | Upgrade CLI to latest stable release |
-| `specify init <dir> --team-ai-directives <url-or-path>` | Bootstrap a project with spec-kit + directives |
-
-These next two are **not** `specify` CLI commands — they're slash commands from the `team-ai-directives` extension, run inside your AI agent session:
-
-| Command | What it does |
-|---------|-------------|
-| `/team.verify` | Health check — extension, skills, CDR, constitution |
-| `/team.discover` | Auto-discover relevant context for a feature |
 
 ---
 
